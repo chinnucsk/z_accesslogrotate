@@ -1,4 +1,4 @@
 z_accesslogrotate
 =================
 
-Rotate Zotonic Webzmachine logs.
+A simple Bash script to rotate Zotonic Webzmachine logs. Activate via cron.

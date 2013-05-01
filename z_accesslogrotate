@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# Rotate Zotonic Webzmachine logs.
+#
+# Jarimatti Valkonen <jarimatti@me.com>
+
+if [ -z $1 ]
+then
+    yesterday=`date -d yesterday +%Y_%m_%d`
+else
+    yesterday=`date -d $1 +%Y_%m_%d`
+    if [ $? != 0 ]
+    then
+        exit 3
+    fi
+fi
+
+accesslog=access.log.${yesterday}
+
+if [ -f ${accesslog}.tar.gz ]
+then
+    echo "File ${accesslog}.tar.gz already exists."
+    exit 4
+fi
+
+tar czf ${accesslog}.tar.gz ${accesslog}_?? || exit 1
+rm ${accesslog}_?? || exit 2
+
